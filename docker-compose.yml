@@ -1,0 +1,47 @@
+version: '3'
+services:
+  rollup1:
+    build: .
+    volumes:
+      - $HOME/.evmosd1:/root/.evmosd
+    environment:
+      - MONIKER=localtestnet1
+      - KEYRING=test
+      - KEYALGO=eth_secp256k1
+      - LOGLEVEL=info
+      - HOMEDIR=/root/.evmosd
+      - BASEFEE=1000000000
+      - CHAIN_ID=stationevm_1234-1
+      - VAL_KEY=mykey1
+    command: start --metrics "" --log_level info --json-rpc.api eth,txpool,personal,net,debug,web3 --chain-id "stationevm_1234-1"
+    ports:
+      - "47546:8546"
+      - "47545:8545"
+      - "47656:26656"
+      - "47657:26657"
+      - "4717:1317"
+      - "47303:30303"
+    restart: always
+
+  rollup2:
+    build: .
+    volumes:
+      - $HOME/.evmosd2:/root/.evmosd
+    environment:
+      - MONIKER=localtestnet2
+      - KEYRING=test
+      - KEYALGO=eth_secp256k1
+      - LOGLEVEL=info
+      - HOMEDIR=/root/.evmosd
+      - BASEFEE=1000000000
+      - CHAIN_ID=stationevm_1234-2
+      - VAL_KEY=mykey2
+    command: start --metrics "" --log_level info --json-rpc.api eth,txpool,personal,net,debug,web3 --chain-id "stationevm_1234-2"
+    ports:
+      - "57546:8546"
+      - "57545:8545"
+      - "57656:26656"
+      - "57657:26657"
+      - "5717:1317"
+      - "57303:30303"
+    restart: always
